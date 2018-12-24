@@ -15,8 +15,8 @@ class BaseReceiver extends Thread {
         // the inner code, act as server to receive incoming calls
         private ServerSocket ssocket = null;
         private Socket socket = null;
-        private BufferedInputStream bfin = null;
-        private BufferedOutputStream bfout = null;
+        private InputStream bfin = null;
+        private OutputStream bfout = null;
         
         private BaseReceiverInternal() {
             try {
@@ -30,8 +30,8 @@ class BaseReceiver extends Thread {
         public void accept() {
             try {
                 socket = ssocket.accept();
-                bfin = new BufferedInputStream(socket.getInputStream());
-                bfout = new BufferedOutputStream(socket.getOutputStream());
+                bfin = socket.getInputStream();
+                bfout = socket.getOutputStream();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -61,17 +61,21 @@ class BaseReceiver extends Thread {
                     byte[] datasizeArr = new byte[4];
                     bfin.read(datasizeArr, 0, 4);
                     int dataSize = Utility.byteToInt(datasizeArr);
-                    //System.out.println("Data size read");
+                    //System.out.println("Data size read = " + String.valueOf(dataSize));
     
                     // read the whole data
                     byte[] data = new byte[dataSize];
-                    bfin.read(data, 0, dataSize);
-                    //System.out.println("Data read");
+                    //int readed = 0;
+                    for (int i = 0; i < dataSize; i++) {
+                        data[i] = (byte)bfin.read();
+                        //readed++;
+                    }
+                    //System.out.println("Data read = " + String.valueOf(readed));
     
                     bfout.write("OKAY".getBytes(), 0, 4);
-                    bfout.flush();
+                    //bfout.flush();
     
-                    socket.close();
+                    //socket.close();
     
                     System.out.println(ip + " " + cmd);
     

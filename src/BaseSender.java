@@ -12,8 +12,8 @@ public class BaseSender {
     
     private class BaseSenderInternal {
         private Socket socket = null;
-        private BufferedInputStream bfin = null;
-        private BufferedOutputStream bfout = null;
+        private InputStream bfin = null;
+        private OutputStream bfout = null;
     
         /**
          * Private API: connect to a remote host.
@@ -25,8 +25,8 @@ public class BaseSender {
             try {
                 socket = new Socket();
                 socket.connect(new InetSocketAddress(host, 11037), 1000);
-                bfin = new BufferedInputStream(socket.getInputStream());
-                bfout = new BufferedOutputStream(socket.getOutputStream());
+                bfin = socket.getInputStream();
+                bfout = socket.getOutputStream();
                 //System.out.println("Connected");
                 return true;
             } catch (IOException e) {
@@ -71,7 +71,7 @@ public class BaseSender {
                     bfout.write(addr.getBytes(), 0, addr.getBytes().length);
                     bfout.write(Utility.intToByte(bytes.length), 0, 4);
                     bfout.write(bytes, 0, bytes.length);
-                    bfout.flush();
+                    //bfout.flush();
 
                     byte[] res = new byte[4];
                     bfin.read(res, 0, 4);
