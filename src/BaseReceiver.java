@@ -71,7 +71,7 @@ class BaseReceiver extends Thread {
                     bfout.write("OKAY".getBytes(), 0, 4);
                     bfout.flush();
     
-                    socket.close();
+                    //socket.close();
     
                     System.out.println(ip + " " + cmd);
     
