@@ -13,6 +13,8 @@ public class BaseSender {
     private class BaseSenderInternal {
         private Socket socket = null;
         private InputStream bfin = null;
+        //private I
+        //private BufferedOutputStream bfout = null;
         private OutputStream bfout = null;
     
         /**
@@ -24,8 +26,9 @@ public class BaseSender {
         private boolean connect(String host) {
             try {
                 socket = new Socket();
-                socket.connect(new InetSocketAddress(host, 11037), 1000);
+                socket.connect(new InetSocketAddress(host, 11037), 3000);
                 bfin = socket.getInputStream();
+                //bfout = new BufferedOutputStream(socket.getOutputStream());
                 bfout = socket.getOutputStream();
                 //System.out.println("Connected");
                 return true;
@@ -43,11 +46,12 @@ public class BaseSender {
          */
         private void disconnect() {
             try {
+                socket.close();
                 bfout.close();
                 bfout = null;
                 bfin.close();
                 bfin = null;
-                socket.close();
+                
                 socket = null;
                 //System.out.println("Disonnected");
             } catch (IOException e) {
@@ -67,14 +71,30 @@ public class BaseSender {
                     //System.out.println(host + " -> " + code);
                     String addr = Utility.getInboundAddr();
                     bfout.write(code.getBytes(), 0, 4);
+                    //System.out.println("code ok = " + code);
+
                     bfout.write(Utility.intToByte(addr.getBytes().length), 0, 4);
+                    //System.out.println("addr len ok = " + String.valueOf(addr.getBytes().length));
+
                     bfout.write(addr.getBytes(), 0, addr.getBytes().length);
+                    //System.out.println("addr ok = " + addr);
+
                     bfout.write(Utility.intToByte(bytes.length), 0, 4);
+                    //System.out.println("data size ok = " + String.valueOf(bytes.length));
+/*
+                    for (int i = 0; i < bytes.length; i++) {
+                        //if (bfout.)
+                        bfout.write(bytes[i]);
+                    }*/
                     bfout.write(bytes, 0, bytes.length);
+                    //System.out.println("data ok");
+
                     //bfout.flush();
+                    //System.out.println("sent");
 
                     byte[] res = new byte[4];
                     bfin.read(res, 0, 4);
+                    //System.out.println("confirmed");
                     disconnect();
                 }
             } catch (IOException e) {
