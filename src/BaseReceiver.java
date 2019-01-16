@@ -46,7 +46,7 @@ class BaseReceiver extends Thread {
                     bfin.read(tp, 0, 4);  // read data type
                     String cmd = new String(tp);
                     //System.out.println("data type read");
-    
+    /*
                     byte[] ipsizeArr = new byte[4];
                     bfin.read(ipsizeArr, 0, 4);   // read ip data size
                     int ipsize = Utility.byteToInt(ipsizeArr);
@@ -56,7 +56,8 @@ class BaseReceiver extends Thread {
                     bfin.read(ipArr, 0, ipsize);    // read ip
                     String ip = new String(ipArr);
                     //System.out.println("IP read");
-    
+    */
+                    String ip = socket.getInetAddress().toString();
                     // read data size
                     byte[] datasizeArr = new byte[4];
                     bfin.read(datasizeArr, 0, 4);

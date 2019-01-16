@@ -37,10 +37,10 @@ public class ChatFrame extends JFrame implements ActionListener{
     private void createFrame(String ip){
     	setSize(920,700);
     	setVisible(true);
-    	ImageIcon fileImg = new ImageIcon(getClass().getResource("\\file.jpg"));
-    	fileImg.setImage(fileImg.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+    	//ImageIcon fileImg = new ImageIcon(getClass().getResource("\\file.jpg"));
+    	//fileImg.setImage(fileImg.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
     	
-    	fileBtn = new JButton(fileImg);
+    	fileBtn = new JButton(/*fileImg*/);
     	fileBtn.setBounds(0, 0, 70, 40);
     	filePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
     	filePanel.add(fileBtn,BorderLayout.WEST);
@@ -64,10 +64,10 @@ public class ChatFrame extends JFrame implements ActionListener{
         userInfoListArea.setText("IP地址：" + ip);
         userInfoListArea.setPreferredSize(new Dimension (200,400)); 
         userInfoListArea.setFont(new Font("宋体", Font.PLAIN, 20));
-        ImageIcon portraItImage = new ImageIcon(getClass().getResource("\\test.jpg"));
+        //ImageIcon portraItImage = new ImageIcon(getClass().getResource("\\test.jpg"));
         
-        portraItImage.setImage(portraItImage.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
-        JLabel portraItImageLable = new JLabel(portraItImage);
+        //portraItImage.setImage(portraItImage.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+        JLabel portraItImageLable = new JLabel(/*portraItImage*/);
         JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
         northPanel.add(portraItImageLable, BorderLayout.NORTH);
         JPanel southPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
@@ -120,7 +120,7 @@ public class ChatFrame extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				if(chooser.showOpenDialog(null)==JFileChooser.APPROVE_OPTION){
 	                String file_name = chooser.getSelectedFile().getName();
-	                md.sendFile(file_name);
+	                //md.sendFile(file_name);
 	            }
 			}
 		});
