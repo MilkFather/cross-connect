@@ -11,6 +11,7 @@ build:
 	$(JAVAC) $(SRC_PATH)ModChat.java 
 	$(JAVAC) $(SRC_PATH)ModFile.java 
 	$(JAVAC) $(SRC_PATH)ModFind.java 
+	$(JAVAC) $(SRC_PATH)NetInterfaceInfo.java 
 	$(JAVAC) $(SRC_PATH)ScannerThread.java 
 	$(JAVAC) $(SRC_PATH)UserInfo.java 
 	$(JAVAC) $(SRC_PATH)Utility.java

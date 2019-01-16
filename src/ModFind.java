@@ -39,12 +39,11 @@ public class ModFind {
      * @param fileAbsPath The ABSOLUTE PATH to the file. 
      * Maybe you should search for the difference between the ABSOLUTE path and the RELATIVE path
      */
-    public void sendMyself(String host) {
+    public void sendMyself(String myip, String host) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-            String addr = Utility.getInboundAddr();
-            if (!addr.equals("0.0.0.0")) {
+            if (!myip.equals("0.0.0.0")) {
                 baos.write(Utility.intToByte(nickname.getBytes().length), 0, 4);
                 baos.write(nickname.getBytes(), 0, nickname.getBytes().length);
 
@@ -94,7 +93,7 @@ public class ModFind {
                 UserInfo ui = li.next();
                 if (ui.IP.equals(IP)) {
                     // update
-                    ui.Nickname = (IP.equals(Utility.getInboundAddr())) ? "复读机" : nickname;
+                    ui.Nickname = nickname;
                     ui.LastFind = lastfind;
                     return;
                 }

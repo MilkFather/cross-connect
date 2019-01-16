@@ -69,16 +69,8 @@ public class BaseSender {
             try {
                 if (connect(host)) {
                     //System.out.println(host + " -> " + code);
-                    String addr = Utility.getInboundAddr();
                     bfout.write(code.getBytes(), 0, 4);
                     //System.out.println("code ok = " + code);
-
-                    // no need to send addr explictly. we can get it from socket.getInetAddress
-                    //bfout.write(Utility.intToByte(addr.getBytes().length), 0, 4);
-                    //System.out.println("addr len ok = " + String.valueOf(addr.getBytes().length));
-
-                    //bfout.write(addr.getBytes(), 0, addr.getBytes().length);
-                    //System.out.println("addr ok = " + addr);
 
                     bfout.write(Utility.intToByte(bytes.length), 0, 4);
                     //System.out.println("data size ok = " + String.valueOf(bytes.length));

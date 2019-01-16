@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Scanner;
 
 class CLI {
     public static void main(String[] args) {
@@ -17,12 +18,12 @@ class CLI {
         ModFile f = ModFile.getInstance();
         
         System.out.println("Testing...");
-        //f.sendFile("192.168.2.9", "/Users/kevin/Desktop/yaht.pdf");
+        //f.sendFile("192.168.2.9", "/Users/kevin/Desktop/Reach for the Summit.mp3");
         //f.sendFile("192.168.2.9", "/Users/kevin/Desktop/Game.hs");
         //c.sendMsg("172.18.61.210", "Test3");
         //brt.stop();
         
-/*
+
         try {
             while (true) {
                 System.in.read();
@@ -30,6 +31,8 @@ class CLI {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
+
+        // try to figure out all the
     }
 }

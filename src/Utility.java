@@ -34,7 +34,8 @@ public class Utility {
         }
     }
 
-    public static String getInboundAddr() {
+    public static ArrayList<NetInterfaceInfo> getInboundAddr() {
+        ArrayList<NetInterfaceInfo> netints = new ArrayList<NetInterfaceInfo>();
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
             while (interfaces.hasMoreElements()) {
@@ -43,21 +44,26 @@ public class Utility {
                 if (iface.isLoopback() || !iface.isUp())
                     continue;
 
-                Enumeration<InetAddress> addresses = iface.getInetAddresses();
-                while(addresses.hasMoreElements()) {
-                    InetAddress addr = addresses.nextElement();
+                List<InterfaceAddress> addresses = iface.getInterfaceAddresses();
+                ListIterator<InterfaceAddress> li = addresses.listIterator();
+                while(li.hasNext()) {
+                    InterfaceAddress addr = li.next();
 
                     // *EDIT*
-                    if (addr instanceof Inet6Address) continue;
+                    if (addr.getAddress() instanceof Inet6Address) continue;
 
-                    String ip = addr.getHostAddress();
+                    String ip = addr.getAddress().getHostAddress();
                     //System.out.println(iface.getDisplayName() + " " + ip);
-                    if (ip.startsWith("192.168")) return ip;
+                    if (ip.startsWith("192.168")) {
+                        NetInterfaceInfo newinfo = new NetInterfaceInfo();
+                        newinfo.LocalIP = ip;
+                        newinfo.PrefixLen = addr.getNetworkPrefixLength();
+                        netints.add(newinfo);
+                    }
                 }
             }
-            return "0.0.0.0";
         } catch (SocketException e) {
-            return "0.0.0.0";
         }
+        return netints;
     }
 }
