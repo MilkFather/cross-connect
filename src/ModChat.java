@@ -40,7 +40,8 @@ class ModChat {
             /* Read the message */
             String msg = new String(byteArr);
 
-            System.out.println(host + ": " + msg);
+            //System.out.println(host + ": " + msg);
+            ChatFrame.getInstance().AddReply(host, msg);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -19,19 +19,33 @@ public class ModFind {
     public ArrayList<UserInfo> getAvailableUsers() {
         // Find users who are available in the last five minutes
         // All user info entries expire in 5 minutes
+        // System.out.println("=========== All Users ===========");
+
         ArrayList<UserInfo> validUsers = new ArrayList<UserInfo>();
         ListIterator<UserInfo> li = users.listIterator();
         while (li.hasNext()) {
             UserInfo ui = li.next();
-            if (ui.LastFind.isAfter(Instant.now()) && ui.LastFind.isBefore(Instant.now().plusSeconds(15 * 60))) {
+            //System.out.println(ui.IP + "   " + ui.Nickname + "   " + ui.LastFind.toString());
+            if (ui.LastFind.isBefore(Instant.now()) && ui.LastFind.isAfter(Instant.now().minusSeconds(5 * 60))) {
                 // add to list
                 validUsers.add(ui);
 
                 // debug, print to console
-                System.out.println(ui.IP + "   " + ui.Nickname + "   " + ui.LastFind.toString());
+                // System.out.println(ui.IP + "   " + ui.Nickname + "   " + ui.LastFind.toString());
             }
         }
         return validUsers;
+    }
+
+    public boolean isAvailable(String ip) {
+        ListIterator<UserInfo> li = users.listIterator();
+        while (li.hasNext()) {
+            UserInfo ui = li.next();
+            if (ui.LastFind.isBefore(Instant.now()) && ui.LastFind.isAfter(Instant.now().minusSeconds(5 * 60))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

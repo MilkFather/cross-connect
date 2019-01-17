@@ -71,7 +71,6 @@ class BaseReceiver extends Thread {
                     System.out.println(ip + " " + cmd);
     
                     if (cmd.equals("BEAT")) {
-                        
                         ModFind.getInstance().receiveHeartbeat(ip, data);
                     } else if (cmd.equals("FILE")) {
                         ModFile.getInstance().receiveFile(ip, data);
