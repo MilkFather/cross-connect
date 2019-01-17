@@ -43,11 +43,6 @@ public class ModFind {
         return false;
     }
 
-    /**
-     * Public API: send a file to the remote side
-     * @param fileAbsPath The ABSOLUTE PATH to the file. 
-     * Maybe you should search for the difference between the ABSOLUTE path and the RELATIVE path
-     */
     public void sendMyself(String myip, String host) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -70,11 +65,6 @@ public class ModFind {
         }
     }
 
-    /**
-     * Protected API: receive a file from the remote side
-     * You should NOT call this method, this method is automatically called whenever a file is received
-     * @param byteArr The buffer
-     */
     public void receiveHeartbeat(String IP, byte[] byteArr) {
         try {
             ByteArrayInputStream bais = new ByteArrayInputStream(byteArr);
