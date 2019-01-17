@@ -38,54 +38,38 @@ class BaseReceiver extends Thread {
         }
         
         public void getInput() {
-            //while (socket.isConnected()) {
-                try {
-                    //System.out.println("received");
-                    // read first handshake
-                    byte[] tp = new byte[4];
-                    bfin.read(tp, 0, 4);  // read data type
-                    String cmd = new String(tp);
-                    //System.out.println("data type read");
+            try {
+                // read first handshake
+                byte[] tp = new byte[4];
+                bfin.read(tp, 0, 4);  // read data type
+                String cmd = new String(tp);
 
-                    String ip = socket.getInetAddress().toString().substring(socket.getInetAddress().toString().lastIndexOf("/") + 1);
-                    // read data size
-                    byte[] datasizeArr = new byte[4];
-                    bfin.read(datasizeArr, 0, 4);
-                    int dataSize = Utility.byteToInt(datasizeArr);
-                    //System.out.println("Data size read = " + String.valueOf(dataSize));
+                String ip = socket.getInetAddress().toString().substring(socket.getInetAddress().toString().lastIndexOf("/") + 1);
+                // read data size
+                byte[] datasizeArr = new byte[4];
+                bfin.read(datasizeArr, 0, 4);
+                int dataSize = Utility.byteToInt(datasizeArr);
     
-                    // read the whole data
-                    byte[] data = new byte[dataSize];
-                    //int readed = 0;
-                    for (int i = 0; i < dataSize; i++) {
-                        data[i] = (byte)bfin.read();
-                        //readed++;
-                    }
-                    //System.out.println("Data read = " + String.valueOf(readed));
-    
-                    bfout.write("OKAY".getBytes(), 0, 4);
-                    //bfout.flush();
-    
-                    //socket.close();
-    
-                    System.out.println(ip + " " + cmd);
-    
-                    if (cmd.equals("BEAT")) {
-                        ModFind.getInstance().receiveHeartbeat(ip, data);
-                    } else if (cmd.equals("FILE")) {
-                        ModFile.getInstance().receiveFile(ip, data);
-                    } else if (cmd.equals("CHAT")) {
-                        ModChat.getInstance().receiveMsg(ip, data);
-                    } else if (cmd.equals("CTRL")) {
-                        //sendFile();  // send file
-                        // TODO
-                    } else if (cmd.equals("EXIT")) {
-                        System.exit(0);  // exit
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                // read the whole data
+                byte[] data = new byte[dataSize];
+                for (int i = 0; i < dataSize; i++) {
+                    data[i] = (byte)bfin.read();
                 }
-            //}
+    
+                bfout.write("OKAY".getBytes(), 0, 4);
+    
+                if (cmd.equals("BEAT")) {
+                    ModFind.getInstance().receiveHeartbeat(ip, data);
+                } else if (cmd.equals("FILE")) {
+                    ModFile.getInstance().receiveFile(ip, data);
+                } else if (cmd.equals("CHAT")) {
+                    ModChat.getInstance().receiveMsg(ip, data);
+                } else if (cmd.equals("EXIT")) {
+                    System.exit(0);  // exit
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             try {
                 socket.close();
             } catch (IOException e) {

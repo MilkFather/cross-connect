@@ -49,11 +49,7 @@ public class ChatFrame extends JFrame implements ActionListener{
     private void createFrame(){
     	setSize(920,700);
     	setVisible(true);
-    	//ImageIcon fileImg = new ImageIcon(getClass().getResource("\\file.jpg"));
-    	//fileImg.setImage(fileImg.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-    	
-        //fileBtn = new JButton(fileImg);
-        fileBtn = new JButton();
+        fileBtn = new JButton("发送文件");
     	fileBtn.setBounds(0, 0, 70, 40);
     	
     	JLabel sendTo = new JLabel("发送到");
@@ -61,7 +57,6 @@ public class ChatFrame extends JFrame implements ActionListener{
     	sendToIP = new JTextField();
     	sendToIP.setColumns(18);
     	sendToIP.setFont(new Font("宋体", Font.PLAIN, 20));
-    	sendToIP.addFocusListener(new JTextFieldHintListener(sendToIP, "接收用户IP"));
     	
     	filePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
     	filePanel.add(fileBtn,BorderLayout.WEST);
@@ -80,17 +75,7 @@ public class ChatFrame extends JFrame implements ActionListener{
         inputField = new JTextArea();
         inputField.setPreferredSize(new Dimension (680,130));
         inputField.setFont(new Font("宋体", Font.PLAIN, 20)); 
-        //currentUserNameTitleLabel = new JLabel(nickname);
-        //currentUserNameTitleLabel.setFont(new Font("微软雅黑", Font.PLAIN, 40));
         userInfoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        //userInfoPanel.add(currentUserNameTitleLabel);
-        //userInfoListArea.setText("IP地址：" + ip);
-        //userInfoListArea.setPreferredSize(new Dimension (200,400)); 
-        //userInfoListArea.setFont(new Font("宋体", Font.PLAIN, 20));
-        //ImageIcon portraItImage = new ImageIcon(getClass().getResource("\\test.jpg"));
-        
-        //portraItImage.setImage(portraItImage.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
-        //JLabel portraItImageLable = new JLabel(portraItImage);
         JLabel portraItImageLable = new JLabel();
         JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
         northPanel.add(portraItImageLable, BorderLayout.NORTH);
@@ -99,12 +84,6 @@ public class ChatFrame extends JFrame implements ActionListener{
         southPanel.add(inputField);
         southPanel.add(send);
 
-        JScrollPane listScrollPane = new JScrollPane(userInfoListArea);
-        JPanel eastPanel = new JPanel(new BorderLayout());
-        /*
-        eastPanel.add(new JLabel("信息列表："), BorderLayout.NORTH);
-        eastPanel.add(listScrollPane, BorderLayout.CENTER);
-        add(eastPanel, BorderLayout.EAST);*/
         add(northPanel, BorderLayout.NORTH);
         JPanel centerPanel = new JPanel();
         centerPanel.add(centerScrollPane, BorderLayout.NORTH);
@@ -122,7 +101,6 @@ public class ChatFrame extends JFrame implements ActionListener{
     }
 
     public void AddReply(String ip, String msg) {
-        //chatTextArea.append("\t\t\t" + time + "\n");
         chatTextArea.append(ip + "：\n" + msg + "\n");
     }
  

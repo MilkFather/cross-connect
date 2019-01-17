@@ -53,7 +53,6 @@ public class BaseSender {
                 bfin = null;
                 
                 socket = null;
-                //System.out.println("Disonnected");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -68,26 +67,11 @@ public class BaseSender {
         public void sendBytes(String host, String code, byte[] bytes) {
             try {
                 if (connect(host)) {
-                    //System.out.println(host + " -> " + code);
                     bfout.write(code.getBytes(), 0, 4);
-                    //System.out.println("code ok = " + code);
-
                     bfout.write(Utility.intToByte(bytes.length), 0, 4);
-                    //System.out.println("data size ok = " + String.valueOf(bytes.length));
-/*
-                    for (int i = 0; i < bytes.length; i++) {
-                        //if (bfout.)
-                        bfout.write(bytes[i]);
-                    }*/
                     bfout.write(bytes, 0, bytes.length);
-                    //System.out.println("data ok");
-
-                    //bfout.flush();
-                    //System.out.println("sent");
-
                     byte[] res = new byte[4];
                     bfin.read(res, 0, 4);
-                    //System.out.println("confirmed");
                     disconnect();
                 }
             } catch (IOException e) {

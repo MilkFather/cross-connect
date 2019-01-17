@@ -9,8 +9,6 @@ build:
 	$(JAVAC) $(SRC_PATH)BaseSender.java 
 	$(JAVAC) $(SRC_PATH)ChatFrame.java 
 	$(JAVAC) $(SRC_PATH)CLI.java 
-	
-	$(JAVAC) $(SRC_PATH)JTextFieldHintListener.java 
 	$(JAVAC) $(SRC_PATH)ModChat.java 
 	$(JAVAC) $(SRC_PATH)ModFile.java 
 	$(JAVAC) $(SRC_PATH)ModFind.java 

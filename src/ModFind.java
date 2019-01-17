@@ -19,19 +19,14 @@ public class ModFind {
     public ArrayList<UserInfo> getAvailableUsers() {
         // Find users who are available in the last five minutes
         // All user info entries expire in 5 minutes
-        // System.out.println("=========== All Users ===========");
 
         ArrayList<UserInfo> validUsers = new ArrayList<UserInfo>();
         ListIterator<UserInfo> li = users.listIterator();
         while (li.hasNext()) {
             UserInfo ui = li.next();
-            //System.out.println(ui.IP + "   " + ui.Nickname + "   " + ui.LastFind.toString());
             if (ui.LastFind.isBefore(Instant.now()) && ui.LastFind.isAfter(Instant.now().minusSeconds(5 * 60))) {
                 // add to list
                 validUsers.add(ui);
-
-                // debug, print to console
-                // System.out.println(ui.IP + "   " + ui.Nickname + "   " + ui.LastFind.toString());
             }
         }
         return validUsers;
@@ -68,7 +63,6 @@ public class ModFind {
                 baos.write(b, 0, b.length);
 
                 /* Send */
-                //System.out.printf("host=" + host);
                 BaseSender.getInstance().sendBytes(host, "BEAT", baos.toByteArray());
             }
         } catch (IOException e) {
@@ -98,8 +92,6 @@ public class ModFind {
             byte[] lastfindArr = new byte[lastfindsize];
             bais.read(lastfindArr, 0, lastfindsize);
             Instant lastfind = (Instant) Utility.deserialize(lastfindArr);
-
-            System.out.print(IP + " " + nickname + "\n");
 
             // update
             ListIterator<UserInfo> li = users.listIterator();
