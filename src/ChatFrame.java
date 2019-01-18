@@ -28,7 +28,6 @@ public class ChatFrame extends JFrame implements ActionListener{
     private JButton fileBtn;
     private JTextField sendToIP;
     private JFileChooser chooser = new JFileChooser();
-    private FileNameExtensionFilter filter = new FileNameExtensionFilter("doc", "docx","txt", "jpg", "gif");
     private ModChat me = ModChat.getInstance();
     private ModFile f = ModFile.getInstance();
 
@@ -47,7 +46,7 @@ public class ChatFrame extends JFrame implements ActionListener{
     }
  
     private void createFrame(){
-    	setSize(920,700);
+    	setSize(700,680);
     	setVisible(true);
         fileBtn = new JButton("发送文件");
     	fileBtn.setBounds(0, 0, 70, 40);
@@ -73,7 +72,7 @@ public class ChatFrame extends JFrame implements ActionListener{
         send = new JButton("发送");
         send.setFont(new Font("微软雅黑", Font.PLAIN, 20));
         inputField = new JTextArea();
-        inputField.setPreferredSize(new Dimension (680,130));
+        inputField.setPreferredSize(new Dimension (550,170));
         inputField.setFont(new Font("宋体", Font.PLAIN, 20)); 
         userInfoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         JLabel portraItImageLable = new JLabel();
@@ -119,7 +118,7 @@ public class ChatFrame extends JFrame implements ActionListener{
         else{
             String time = simpleDateFormat.format(new Date());
             me.sendMsg(to_ip, message);
-            chatTextArea.append("\t\t\t" + time + "\n");
+            chatTextArea.append("\t\t  " + time + "\n");
             chatTextArea.append("我：\n" + message + "\n");
             inputField.setText("");
             //chatTextArea.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -152,14 +151,5 @@ public class ChatFrame extends JFrame implements ActionListener{
         st.start();
     	ChatFrame chat = ChatFrame.getInstance();
     	chat.setVisible(true);
-    	try {
-            while (true) {
-                System.in.read();
-                ModFind.getInstance().getAvailableUsers();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
-
